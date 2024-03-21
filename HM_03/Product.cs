@@ -1,6 +1,6 @@
 namespace HM_03;
 
-public enum Products
+public enum Product
 {
     Banana,
     Chocolate,

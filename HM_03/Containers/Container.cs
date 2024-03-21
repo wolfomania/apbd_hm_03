@@ -1,10 +1,11 @@
 using HM_03.Exceptions;
+using HM_03.Interfaces;
 
 namespace HM_03.Containers;
 
-public class Container : IContainer
+public abstract class Container : IContainer
 {
-    public static int ContainerCount { get; protected set; }
+    public static int ContainerCount { get; protected set; } = 1;
     
     public double Mass { get; protected set; }
     
@@ -16,38 +17,40 @@ public class Container : IContainer
     
     public double MaxPayload { get; protected set; } 
     
-    public string SerialNumber { get; protected set; } = string.Empty;
+    public string SerialNumber { get; protected set; }
 
-    public Container(double mass, double height, double tareWeight, double depth, double maxPayload)
+    public Container(double height, double tareWeight, double depth, double maxPayload)
     {
-        Mass = mass;
         Height = height;
         TareWeight = tareWeight;
         Depth = depth;
         MaxPayload = maxPayload;
+        SerialNumber = "KON-" + GetContainerType() + "-" + ContainerCount++;
     }
 
 
-    public virtual void Unload()
-    {
+    public virtual void Unload() {
         TareWeight = 0;
     }
 
-    public virtual void Load(double mass, double multiplier = 1.0)
-    {
+    public virtual void Load(double mass, double multiplier = 1.0) {
         if (mass + Mass > MaxPayload * multiplier)
         {
             throw new OverfillException("Cannot be loaded. Cargo mass exceeds max payload");
         }
+        Mass += mass;
+    }
+
+    public virtual string GetContainerType() {
+        return "C";
     }
     
-    public override string ToString()
-    {
-        return $"Serial number: {SerialNumber}\n" +
-               $"Cargo mass: {Mass} kg\n" +
-               $"Height: {Height} cm\n" +
-               $"Tare weight: {TareWeight} kg\n" +
-               $"Depth: {Depth} cm\n" +
-               $"Max payload: {MaxPayload} kg\n";
+    public override string ToString() {
+        return "Serial number: {SerialNumber}\n" +
+               "Cargo mass: {Mass} kg\n" +
+               "Height: {Height} cm\n" +
+               "Tare weight: {TareWeight} kg\n" +
+               "Depth: {Depth} cm\n" +
+               "Max payload: {MaxPayload} kg\n";
     }
 }

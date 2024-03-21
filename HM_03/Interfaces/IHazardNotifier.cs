@@ -1,4 +1,4 @@
-namespace HM_03;
+namespace HM_03.Interfaces;
 
 public interface IHazardNotifier
 {
