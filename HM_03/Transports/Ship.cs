@@ -19,21 +19,34 @@ public class Ship
         MaxSpeed = maxSpeed;
         MaxNumOfContainers = maxNumOfContainers;
         MaxMass = maxMass;
-        Containers = new Dictionary<HashCode, Container>();
+        Containers = new Dictionary<int, Container>(maxNumOfContainers);
     }
 
     public void LoadContainer(Container container)
     {
-        Containers.Add(container.SerialNumber.GetHashCode(), container);
+        string number = container.SerialNumber;
+        Containers.Add(Int32.Parse(number.Substring(6)), container);
     }
 
-    /*public void LoadContainer(IEnumerable<Container> containers)
+    public void LoadContainer(IEnumerable<Container> containers)
     {
-        Containers.AddRange(containers);
+        foreach (var VARIABLE in containers)
+        {
+            LoadContainer(VARIABLE);
+        }
     }
 
     public Container removeContainer(Container container)
     {
-        Containers.Fin
-    }*/
+        var number = container.SerialNumber;
+        Containers.Remove(Int32.Parse(number.Substring(6)));
+        return container;
+    }
+
+    public Container replace(int num, Container container)
+    {
+        Container temp = Containers[num];
+        LoadContainer(container);
+        return temp;
+    }
 }
