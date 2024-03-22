@@ -37,6 +37,6 @@ public class GasContainer : Container, IHazardNotifier
     public override string ToString()
     {
         return base.ToString() +
-               $"\tPressure: {Pressure} atmospheres";
+               $"\tPressure: {Pressure} atmospheres\n";
     }
 }

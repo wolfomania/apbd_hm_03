@@ -50,22 +50,28 @@ public class Ship
 
     }
 
-    public Container RemoveContainer(Container container)
+    public bool RemoveContainer(Container container)
     {
         var number = container.SerialNumber;
-        Containers.Remove(Int32.Parse(number.Substring(6)));
-        return container;
+        return Containers.Remove(Int32.Parse(number.Substring(6)));
+    }
+    
+    public Container? RemoveContainer(int num)
+    {
+        var temp = Containers[num];
+        return Containers.Remove(num) ? temp : null;
     }
 
-    public Container Replace(int num, Container container)
+    public Container? Replace(int num, Container container)
     {
-        Container temp = Containers[num];
+        var temp = RemoveContainer(num);
         LoadContainer(container);
         return temp;
     }
 
     public bool TransferContainerTo(Container container, Ship ship)
     {
+        if (!RemoveContainer(container)) return false;
         if (ship.LoadContainer(container)) return true;
         LoadContainer(container);
         return false;
@@ -85,10 +91,13 @@ public class Ship
 
     public void DisplayAllContainers()
     {
+        Console.WriteLine($"All containers on ship#{GetHashCode()}: ");
         foreach (var variable in Containers.Values)
         {
             Console.WriteLine(variable);
         }
+        Console.WriteLine($"That's all containers on ship#{GetHashCode()}. ");
+
     }
 
     public override string ToString()
@@ -96,6 +105,6 @@ public class Ship
         return "Ship description:\n" +
                $"\tMax speed: {MaxSpeed} knots\n" +
                $"\tContainers on board: {Containers.Count} / {MaxNumOfContainers}\n" +
-               $"\tCargo weight on board: {GetCargoWeight()} / {MaxMass} tons\n";
+               $"\tCargo weight on board: {GetCargoWeight() / 1000} / {MaxMass} tons\n";
     }
 }
