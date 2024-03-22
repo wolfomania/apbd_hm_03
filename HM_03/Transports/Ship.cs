@@ -45,7 +45,7 @@ public class Ship
     public bool LoadContainers(IEnumerable<Container> containers)
     {
         if (containers.All(LoadContainer)) return true;
-        Console.WriteLine("Ship is fully loaded.");
+        Console.WriteLine("Ship is fully loaded. Can't load any more");
         return false;
 
     }
