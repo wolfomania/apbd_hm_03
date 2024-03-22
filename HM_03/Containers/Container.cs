@@ -41,16 +41,21 @@ public abstract class Container : IContainer
         Mass += mass;
     }
 
+    public double GetFullWeight()
+    {
+        return Mass + TareWeight;
+    }
+
     public virtual string GetContainerType() {
         return "C";
     }
     
     public override string ToString() {
-        return "Serial number: {SerialNumber}\n" +
-               "Cargo mass: {Mass} kg\n" +
-               "Height: {Height} cm\n" +
-               "Tare weight: {TareWeight} kg\n" +
-               "Depth: {Depth} cm\n" +
-               "Max payload: {MaxPayload} kg\n";
+        return $"Serial number: {SerialNumber}\n" +
+               $"\tCargo mass: {Mass} kg\n" +
+               $"\tHeight: {Height} cm\n" +
+               $"\tTare weight: {TareWeight} kg\n" +
+               $"\tDepth: {Depth} cm\n" +
+               $"\tMax payload: {MaxPayload} kg\n";
     }
 }

@@ -11,7 +11,7 @@ public class LiquidContainer : Container, IHazardNotifier {
     {
         Mass = 0;
         Hazardous = hazardous;
-        Load(mass);
+        base.Load(mass);
     }
 
     public override void Load(double mass, double multiplier = 1) {
@@ -38,5 +38,11 @@ public class LiquidContainer : Container, IHazardNotifier {
     public override string GetContainerType() 
     {
         return "L";
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() +
+               $"\tHazardous: {Hazardous}\n";
     }
 }

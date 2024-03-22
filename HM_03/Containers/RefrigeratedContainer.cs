@@ -63,4 +63,11 @@ public class RefrigeratedContainer : Container
     {
         return "R";
     }
+
+    public override string ToString()
+    {
+        return base.ToString() +
+               $"\tProduct: {Product}\n" +
+               $"\tTemperature: {Temperature} C\n";
+    }
 }

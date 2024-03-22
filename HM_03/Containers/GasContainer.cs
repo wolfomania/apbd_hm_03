@@ -7,14 +7,14 @@ public class GasContainer : Container, IHazardNotifier
 {
 
     
-    public double Preasure { get; set; }
+    public double Pressure { get; set; }
 
-    public GasContainer(double mass, double height, double tareWeight, double depth, double maxPayload, double preasure) 
+    public GasContainer(double mass, double height, double tareWeight, double depth, double maxPayload, double pressure) 
         : base(height, tareWeight, depth, maxPayload)
     {
         Mass = 0;
-        Preasure = preasure;
-        Load(mass);
+        Pressure = pressure;
+        base.Load(mass);
     }
 
     public override void Unload()
@@ -32,5 +32,11 @@ public class GasContainer : Container, IHazardNotifier
     public override string GetContainerType()
     {
         return "G";
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() +
+               $"\tPressure: {Pressure} atmospheres";
     }
 }
